@@ -37,7 +37,7 @@ class Usuario extends Validator{
     public function setPssword($value)
     {
         if ($this->validatePassword($value)) {
-            $this->pssword = password_hash($value, PASSWORD_DEFAULT);
+                $this->pssword = password_hash($value, PASSWORD_DEFAULT);
             return true;
         } else {
             return false;
@@ -153,16 +153,18 @@ class Usuario extends Validator{
         }
     }
 
-    public function checkPassword($password)
+    public function checkPassword($pssword)
     {
         $sql = 'SELECT pssword FROM usuario WHERE id_usuario = ?';
         $params = array($this->id_usuario);
         $data = Database::getRow($sql, $params);
         // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
-        if (password_verify($password, $data['pssword'])) {
+        
+        if (password_verify($pssword, $data['pssword'])) {
             return true;
-        } else {
+        } else {           
             return false;
+            
         }
     }
 
@@ -212,7 +214,7 @@ class Usuario extends Validator{
 
     public function readAll()
     {
-        $sql = 'SELECT id_usuario ,username ,pssword ,email ,nombre ,activo , rol FROM v_usuario
+        $sql = 'SELECT id_usuario ,username ,pssword ,email ,nombre ,apellido ,activo , id_rol FROM usuario
                 ORDER BY id_usuario desc';
         $params = null;
         return Database::getRows($sql, $params);

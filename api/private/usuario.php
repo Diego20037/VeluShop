@@ -156,7 +156,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-            case 'logIn':
+            case 'logIn':        
                 $_POST = $usuario->validateForm($_POST);
                 if (!$usuario->checkUser($_POST['alias'])) {
                     $result['exception'] = 'Nombre de usuario incorrecto';
